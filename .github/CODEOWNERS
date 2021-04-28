@@ -6,5 +6,6 @@
 /.github/workflows/oss-governance-bot.yml       @fuxingloh
 /.github/governance.yml                         @fuxingloh
 
+CONTRIBUTING.md                                 @fuxingloh
 README.md                                       @fuxingloh
 LICENSE                                         @fuxingloh
