@@ -23,7 +23,7 @@ issue:
         author: true
         collaborator: true
         member: true
-        owner: tue
+        owner: true
 
     - prefix: area
       list:
