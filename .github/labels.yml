@@ -52,6 +52,12 @@
   name: kind/dependencies
   description: Pull requests that update a dependency file
 
+# Area
+- color: fbca04
+  name: area/core
+- color: fbca04
+  name: area/workflow
+
 # Priority
 - color: d93f0b
   name: priority/urgent-now
