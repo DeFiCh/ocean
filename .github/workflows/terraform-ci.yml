@@ -1,4 +1,4 @@
-name: Terraform
+name: Terraform CI
 
 on:
   pull_request:
@@ -9,12 +9,12 @@ jobs:
     name: Lint
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         module:
-          - modules/module-ocean
-          - modules/module-playground
-          - modules/module-whale
-      fail-fast: true
+          - terraform/aws-edge
+          - terraform/aws-playground-ecs
+          - terraform/aws-region-eks
 
     steps:
       - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
