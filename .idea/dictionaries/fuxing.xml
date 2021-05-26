@@ -72,6 +72,7 @@
       <w>hdkeypath</w>
       <w>hdmasterfingerprint</w>
       <w>hdseedid</w>
+      <w>healthcheck</w>
       <w>ifdup</w>
       <w>importprivkey</w>
       <w>infima</w>
@@ -140,6 +141,7 @@
       <w>rpcallowip</w>
       <w>rpcbind</w>
       <w>rpcpassword</w>
+      <w>rpcport</w>
       <w>rpcuser</w>
       <w>rshift</w>
       <w>scripthash</w>

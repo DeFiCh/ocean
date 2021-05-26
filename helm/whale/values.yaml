@@ -1,0 +1,43 @@
+network: "mainnet"
+
+whale:
+  tag: "0.2.1"
+  resources: { }
+  # TODO(fuxingloh): requires production tuning
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+ain:
+  tag: "1.7.0"
+  resources: { }
+
+ingress:
+  annotations: { }
+  # TODO(fuxingloh): need to keep this provider agnostic
+  # kubernetes.io/ingress.class: alb
+  # alb.ingress.kubernetes.io/target-type: ip
+  # alb.ingress.kubernetes.io/scheme: internet-facing
+  # alb.ingress.kubernetes.io/certificate-arn: {{ .Values.ingress.acmCertificateArn }}
+  # alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
+  # alb.ingress.kubernetes.io/healthcheck-path: /_health/probes/readiness
+  # alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": { "Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'
+
+
+autoscaling:
+  # TODO(fuxingloh): requires production tuning
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 75
+  # targetMemoryUtilizationPercentage: 80
+
+podAnnotations: { }
+
+nodeSelector: { }
+
+tolerations: [ ]
+
+affinity: { }

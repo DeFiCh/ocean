@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "whale.fullname" . }}
+  labels:
+    {{- include "whale.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "whale.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "whale.selectorLabels" . | nindent 8 }}
+    spec:
+      serviceAccountName: {{ include "whale.serviceAccountName" . }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "ghcr.io/defich/whale:{{ .Values.whale.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: WHALE_DEFID_URL
+              value: "http://whale:whale@localhost:8554"
+            - name: WHALE_DATABASE_PROVIDER
+              value: level
+            - name: WHALE_NETWORK
+              value: {{.Values.network}}
+          ports:
+            - name: http
+              containerPort: 3000
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /_health/probes/liveness
+              port: http
+            initialDelaySeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /_health/probes/readiness
+              port: http
+          resources:
+            {{- toYaml .Values.whale.resources | nindent 12 }}
+        - name: ain
+          image: "defi/defichain:{{ .Values.ain.tag }}"
+          imagePullPolicy: IfNotPresent
+          command:
+            - "defid"
+            {{- if eq .Values.network "testnet" }}
+            - "-testnet=1"
+            {{- end }}
+            {{- if eq .Values.network "regtest" }}
+            - "-regtest=1"
+            {{- end }}
+            - "-printtoconsole"
+            - "-rpcallowip=0.0.0.0/0"
+            - "-rpcbind=0.0.0.0"
+            - "-rpcuser=whale"
+            - "-rpcpassword=whale"
+            - "-rpcport=8554"
+            - "-txindex=1"
+            - "-acindex=1"
+          resources:
+            {{- toYaml .Values.ain.resources | nindent 12 }}
+
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
