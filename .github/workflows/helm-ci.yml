@@ -1,15 +1,17 @@
 name: Helm CI
 
-on: pull_request
+on:
+  pull_request:
+    branches: [ main ]
 
 jobs:
   lint-test:
+    name: Lint and Test
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         chart:
           - charts/whale
-    name: Lint and Test Charts
-    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
         with:
@@ -25,14 +27,14 @@ jobs:
 
       - uses: helm/chart-testing-action@5f16c27cf7a4fa9c776ff73734df3909b2b65127
 
-      - name: Run chart-testing (list-changed)
-        id: list-changed
-        working-directory: ${{ matrix.chart }}
-        run: |
-          changed=$(ct list-changed)
-          if [[ -n "$changed" ]]; then
-            echo "::set-output name=changed::true"
-          fi
+#      - name: Run chart-testing (list-changed)
+#        id: list-changed
+#        working-directory: ${{ matrix.chart }}
+#        run: |
+#          changed=$(ct list-changed)
+#          if [[ -n "$changed" ]]; then
+#            echo "::set-output name=changed::true"
+#          fi
 
       - name: Run chart-testing (lint)
         working-directory: ${{ matrix.chart }}
@@ -40,7 +42,7 @@ jobs:
 
       - name: Create kind cluster
         uses: helm/kind-action@7a937c0fb648064a83b8b9354151e5e543d9fcec
-        if: steps.list-changed.outputs.changed == 'true'
+#        if: steps.list-changed.outputs.changed == 'true'
 
       - name: Run chart-testing (install)
         working-directory: ${{ matrix.chart }}
