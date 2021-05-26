@@ -36,9 +36,9 @@ jobs:
 #            echo "::set-output name=changed::true"
 #          fi
 
-      - name: Run chart-testing (lint)
-        working-directory: ${{ matrix.chart }}
-        run: ct lint
+#      - name: Run chart-testing (lint)
+#        working-directory: ${{ matrix.chart }}
+#        run: ct lint
 
       - name: Create kind cluster
         uses: helm/kind-action@7a937c0fb648064a83b8b9354151e5e543d9fcec
