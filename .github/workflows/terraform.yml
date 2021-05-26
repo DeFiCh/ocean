@@ -1,0 +1,39 @@
+name: Terraform
+
+on:
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  main:
+    name: Lint
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        module:
+          - modules/module-ocean
+          - modules/module-playground
+          - modules/module-whale
+      fail-fast: true
+
+    steps:
+      - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
+      - uses: hashicorp/setup-terraform@3d8debd658c92063839bc97da5c2427100420dec
+
+      - run: terraform fmt -check
+        working-directory: ${{ matrix.module }}
+
+      - name: Security Scan
+        if: github.event.sender.type == 'User' && github.event.pull_request.head.repo.full_name == github.repository
+        uses: triat/terraform-security-scan@0814a811e00584dc017a58d41a25bd46415c3206
+        with:
+          tfsec_actions_working_dir: ${{ matrix.module }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
+
+      - name: TFLint
+        if: github.event.sender.type == 'User' && github.event.pull_request.head.repo.full_name == github.repository
+        uses: reviewdog/action-tflint@0cc75f7cedb59d058a93db10f7f8ec2daf115808
+        with:
+          github_token: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
+          working_directory: ${{ matrix.module }}
