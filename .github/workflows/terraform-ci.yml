@@ -12,9 +12,9 @@ jobs:
       fail-fast: false
       matrix:
         module:
-          - terraform/aws-edge
+#          - terraform/aws-edge
           - terraform/aws-playground-ecs
-          - terraform/aws-region-eks
+#          - terraform/aws-region-eks
 
     steps:
       - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
