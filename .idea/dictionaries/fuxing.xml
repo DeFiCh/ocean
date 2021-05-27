@@ -3,8 +3,10 @@
     <words>
       <w>accounttoutxos</w>
       <w>acindex</w>
+      <w>amazonaws</w>
       <w>amkheight</w>
       <w>anyonecanpay</w>
+      <w>awslogs</w>
       <w>bayfrontgardensheight</w>
       <w>bayfrontheight</w>
       <w>bayfrontmarinaheight</w>
@@ -25,6 +27,7 @@
       <w>checksig</w>
       <w>checksigverify</w>
       <w>clarkequayheight</w>
+      <w>cloudposse</w>
       <w>codeseparator</w>
       <w>createmasternode</w>
       <w>createrawtransaction</w>
@@ -88,6 +91,7 @@
       <w>keypoolsize</w>
       <w>lessthan</w>
       <w>lessthanorequal</w>
+      <w>letsencrypt</w>
       <w>lexint</w>
       <w>libevent</w>
       <w>listaccounts</w>
@@ -181,6 +185,7 @@
       <w>vsize</w>
       <w>walletname</w>
       <w>walletversion</w>
+      <w>websecure</w>
       <w>wpkh</w>
     </words>
   </dictionary>
