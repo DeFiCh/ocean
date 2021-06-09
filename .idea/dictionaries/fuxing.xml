@@ -105,6 +105,7 @@
       <w>masternodeid</w>
       <w>masternodeoperator</w>
       <w>masternodestate</w>
+      <w>maxconnections</w>
       <w>mediantime</w>
       <w>memdown</w>
       <w>mempool</w>
