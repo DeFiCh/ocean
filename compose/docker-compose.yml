@@ -1,0 +1,26 @@
+version: '3.7'
+
+services:
+  defi-blockchain:
+    image: defi/defichain:1.7.8
+    command: >
+      defid
+      -maxconnections=512
+      -rpcallowip=0.0.0.0/0
+      -rpcbind=0.0.0.0
+      -rpcuser=defi-user
+      -rpcpassword=defi-pass
+      -txindex=1
+      -acindex=1
+
+  defi-whale:
+    image: ghcr.io/defich/whale:0.2.4
+    depends_on:
+      - defi-blockchain
+    ports:
+      - "13000:3000"
+    environment:
+      WHALE_DEFID_URL: http://defi-user:defi-pass@defi-blockchain:8554
+      WHALE_DATABASE_PROVIDER: level
+      WHALE_DATABASE_LEVEL_LOCATION: .level/index
+      WHALE_NETWORK: mainnet
